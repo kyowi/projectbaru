@@ -1,6 +1,18 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
+
+ 
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
+
+
  
 Route::get('/login', [LoginController::class, 'create'])
     ->middleware('guest')
@@ -29,6 +41,11 @@ Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
     Route::post('/pos', [PosController::class, 'store'])->name('pos.store');
 });
 
+Route::get('/pos/history', function () {
+    return view('pos.history');
+})->middleware('auth')->name('pos.history');
 
-
+Route::get('/badge', function () {
+    return view('badge');
+})->middleware('auth')->name('badge');
 
