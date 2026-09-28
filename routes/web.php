@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])
@@ -12,8 +15,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])
     ->name('dashboard');
 
-
- 
 Route::get('/login', [LoginController::class, 'create'])
     ->middleware('guest')
     ->name('login');
@@ -30,6 +31,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::get('/reports/sales', [ReportController::class, 'sales'])->name('report.sales');
+    Route::resource('categories', CategoryController::class);
+    Route::resource('products', ProductController::class);
 });
 
 Route::get('/users', function () {
